@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>typing.zen</title>
+    <meta name="description" content="A minimal typing test." />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="app">
+      <header class="top">
+        <div class="brand">
+          <div class="logo" aria-hidden="true">tz</div>
+          <div class="brandText">
+            <div class="title">typing.zen</div>
+            <div class="subtitle">calm typing tests</div>
+          </div>
+        </div>
+
+        <div class="stats" aria-label="Typing stats">
+          <div class="stat">
+            <div class="statLabel">time</div>
+            <div class="statValue"><span id="timeLeft">60</span>s</div>
+          </div>
+          <div class="stat">
+            <div class="statLabel">wpm</div>
+            <div class="statValue" id="wpm">—</div>
+          </div>
+          <div class="stat">
+            <div class="statLabel">acc</div>
+            <div class="statValue"><span id="acc">—</span>%</div>
+          </div>
+        </div>
+      </header>
+
+      <section class="panel">
+        <div class="row">
+          <label class="label" for="duration">duration</label>
+          <select id="duration" class="select">
+            <option value="15">15s</option>
+            <option value="30">30s</option>
+            <option value="60" selected>60s</option>
+            <option value="120">120s</option>
+          </select>
+
+          <div class="spacer"></div>
+
+          <button id="restart" class="button" type="button">restart</button>
+        </div>
+
+        <div
+          id="words"
+          class="words"
+          aria-label="Words to type"
+          aria-live="polite"
+        ></div>
+
+        <div class="inputWrap">
+          <input
+            id="typing"
+            class="input"
+            type="text"
+            autocomplete="off"
+            autocapitalize="off"
+            spellcheck="false"
+            placeholder="Click here and start typing…"
+            aria-label="Typing input"
+          />
+        </div>
+
+        <div class="hint" id="hint">
+          Press <kbd>Tab</kbd> to restart. Your first keystroke starts the timer.
+        </div>
+      </section>
+
+      <footer class="footer">
+        <span>no accounts • no tracking</span>
+        <span class="dot" aria-hidden="true">·</span>
+        <a href="https://github.com/" target="_blank" rel="noreferrer"
+          >hosted on GitHub Pages</a
+        >
+      </footer>
+    </main>
+
+    <script src="./app.js"></script>
+  </body>
+</html>
+
