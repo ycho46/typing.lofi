@@ -1,17 +1,24 @@
-## typing.lofi
+# typing.lofi
 
-A tiny lo‑fi typing test web app, hosted on GitHub Pages.
+A calm little corner of the internet to type, breathe, and focus.
 
-### Modes
+typing.lofi is a minimalist typing experience inspired by lo-fi music, ambient nights, and hardware-inspired interfaces.  
+No ads. No clutter. Just rhythm, atmosphere, and flow.
 
-- **Words**: classic word-by-word typing (space advances).
-- **Passage**: type a short lo‑fi / zen paragraph (punctuation matters).
+## Features
 
-### Run locally
+- lo-fi inspired typing sessions
+- ambient music visualizer
+- zen UI with retro industrial aesthetics
+- smooth keyboard-first interactions
+- calming passages designed for flow
 
-Open `docs/index.html` in a browser.
+Built with:
+- Next.js
+- React
+- Tailwind
+- Web Audio API
 
-### Deploy (GitHub Pages)
-
-Configure GitHub Pages to serve from the `main` branch and `/docs` folder.
-
+Type slowly.  
+Type fast.  
+Just keep flowing.
