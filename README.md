@@ -1,4 +1,4 @@
-## typing.zen
+## typing.lofi
 
 A tiny typing test web app (inspired by `typing.works`) intended to be hosted on GitHub Pages.
 
