@@ -3,85 +3,207 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>typing.zen</title>
+    <title>typing.lofi</title>
     <meta name="description" content="A minimal typing test." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@100;200;300;400&family=Space+Grotesk:wght@300;400&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="./styles.css" />
   </head>
   <body>
-    <main class="app">
-      <header class="top">
+    <main class="shell">
+      <header class="bar">
         <div class="brand">
-          <div class="logo" aria-hidden="true">tz</div>
+          <span class="mark" aria-hidden="true"></span>
           <div class="brandText">
-            <div class="title">typing.zen</div>
-            <div class="subtitle">calm typing tests</div>
-          </div>
-        </div>
-
-        <div class="stats" aria-label="Typing stats">
-          <div class="stat">
-            <div class="statLabel">time</div>
-            <div class="statValue"><span id="timeLeft">60</span>s</div>
-          </div>
-          <div class="stat">
-            <div class="statLabel">wpm</div>
-            <div class="statValue" id="wpm">—</div>
-          </div>
-          <div class="stat">
-            <div class="statLabel">acc</div>
-            <div class="statValue"><span id="acc">—</span>%</div>
+            <div class="brandName">typing.lofi</div>
           </div>
         </div>
       </header>
 
-      <section class="panel">
-        <div class="row">
-          <label class="label" for="duration">duration</label>
-          <select id="duration" class="select">
-            <option value="15">15s</option>
-            <option value="30">30s</option>
-            <option value="60" selected>60s</option>
-            <option value="120">120s</option>
-          </select>
+      <section class="surface">
+        <div class="controls">
+          <div class="seg" role="tablist" aria-label="Mode">
+            <button id="modePassage" class="segBtn isActive" type="button" role="tab" aria-selected="true">
+              <svg class="modeIcon" viewBox="0 0 24 24" aria-hidden="true">
+                <path
+                  d="M6 12h12"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-width="1.2"
+                />
+              </svg>
+              <span class="srOnly">passage</span>
+            </button>
+            <button id="modeWords" class="segBtn" type="button" role="tab" aria-selected="false">
+              <svg class="modeIcon" viewBox="0 0 24 24" aria-hidden="true">
+                <g fill="currentColor">
+                  <circle cx="7" cy="12" r="1.1" />
+                  <circle cx="12" cy="12" r="1.1" />
+                  <circle cx="17" cy="12" r="1.1" />
+                </g>
+              </svg>
+              <span class="srOnly">words</span>
+            </button>
+          </div>
 
-          <div class="spacer"></div>
+          <button id="themeToggle" class="themeToggle" type="button" role="switch" aria-checked="false" aria-label="Toggle dark mode">
+            <svg class="themeIcon" viewBox="0 0 24 24" aria-hidden="true">
+              <path
+                fill="currentColor"
+                d="M12 18a6 6 0 1 1 0-12a6 6 0 0 1 0 12Zm0-15a1 1 0 0 1 1 1v1a1 1 0 1 1-2 0V4a1 1 0 0 1 1-1Zm0 17a1 1 0 0 1 1 1v1a1 1 0 1 1-2 0v-1a1 1 0 0 1 1-1ZM3 11a1 1 0 0 1 1-1h1a1 1 0 1 1 0 2H4a1 1 0 0 1-1-1Zm15 0a1 1 0 0 1 1-1h1a1 1 0 1 1 0 2h-1a1 1 0 0 1-1-1ZM5.6 5.6a1 1 0 0 1 1.4 0l.7.7a1 1 0 1 1-1.4 1.4l-.7-.7a1 1 0 0 1 0-1.4Zm10.7 10.7a1 1 0 0 1 1.4 0l.7.7a1 1 0 1 1-1.4 1.4l-.7-.7a1 1 0 0 1 0-1.4ZM18.4 5.6a1 1 0 0 1 0 1.4l-.7.7a1 1 0 1 1-1.4-1.4l.7-.7a1 1 0 0 1 1.4 0ZM7.7 16.3a1 1 0 0 1 0 1.4l-.7.7a1 1 0 1 1-1.4-1.4l.7-.7a1 1 0 0 1 1.4 0Z"
+              />
+            </svg>
+            <span class="themeTrack" aria-hidden="true">
+              <span class="themeThumb"></span>
+            </span>
+            <svg class="themeIcon" viewBox="0 0 24 24" aria-hidden="true">
+              <path
+                fill="currentColor"
+                d="M21 14.2A8.3 8.3 0 0 1 9.8 3a7.8 7.8 0 1 0 11.2 11.2Z"
+              />
+            </svg>
+          </button>
 
-          <button id="restart" class="button" type="button">restart</button>
+          <canvas id="visualizer" class="visualizer" aria-hidden="true"></canvas>
+
+          <div class="bgm">
+            <div
+              id="bgmKnob"
+              class="bgmKnob"
+              role="slider"
+              tabindex="0"
+              aria-label="BGM volume"
+              aria-valuemin="0"
+              aria-valuemax="100"
+              aria-valuenow="40"
+            >
+              <div class="bgmDial">
+                <span class="bgmIndicator" aria-hidden="true"></span>
+              </div>
+            </div>
+            <div class="bgmLabel" aria-hidden="true">
+              <svg class="bgmNote" viewBox="0 0 16 16" aria-hidden="true">
+                <path
+                  d="M6.4 12.4 V3.2 C8.6 3.6 10.2 5 10.2 6.6"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <ellipse cx="4.6" cy="12.6" rx="2" ry="1.4" fill="currentColor" />
+              </svg>
+            </div>
+          </div>
+
+          <div class="led" aria-label="Typing stats">
+            <div class="ledItem ledItemWpm">
+              <div class="ledLabel">wpm</div>
+              <div class="ledValue" id="wpm">—</div>
+            </div>
+            <div class="ledSep" aria-hidden="true"></div>
+            <div class="ledItem ledItemTime">
+              <div class="ledLabel">time</div>
+              <div class="ledValue" id="time">0:00.00</div>
+            </div>
+            <div class="ledSep" aria-hidden="true"></div>
+            <div class="ledItem">
+              <div class="ledLabel">acc</div>
+              <div class="ledValue"><span id="acc">—</span><span class="unit">%</span></div>
+            </div>
+          </div>
         </div>
 
         <div
           id="words"
           class="words"
-          aria-label="Words to type"
+          tabindex="0"
+          role="textbox"
+          aria-multiline="false"
+          aria-label="Text to type"
           aria-live="polite"
         ></div>
 
-        <div class="inputWrap">
-          <input
-            id="typing"
-            class="input"
-            type="text"
-            autocomplete="off"
-            autocapitalize="off"
-            spellcheck="false"
-            placeholder="Click here and start typing…"
-            aria-label="Typing input"
-          />
-        </div>
-
-        <div class="hint" id="hint">
-          Press <kbd>Tab</kbd> to restart. Your first keystroke starts the timer.
-        </div>
       </section>
 
       <footer class="footer">
-        <span>no accounts • no tracking</span>
-        <span class="dot" aria-hidden="true">·</span>
-        <a href="https://github.com/" target="_blank" rel="noreferrer"
-          >hosted on GitHub Pages</a
-        >
+        <span class="footItem">no accounts</span>
+        <span class="sep" aria-hidden="true">/</span>
+        <span class="footItem">no tracking</span>
+        <span class="sep" aria-hidden="true">/</span>
+        <span class="footItem">just vibe</span>
       </footer>
     </main>
+
+    <div
+      id="pauseModal"
+      class="pmRoot"
+      role="dialog"
+      aria-modal="true"
+      aria-hidden="true"
+      aria-labelledby="pmTitle"
+      data-open="false"
+    >
+      <div class="pmBackdrop" aria-hidden="true"></div>
+      <div class="pmCard" role="document" tabindex="-1">
+        <div class="pmGrid" aria-hidden="true"></div>
+
+        <header class="pmHeader">
+          <span class="pmStatus" aria-hidden="true">
+            <span class="pmLed"></span>
+            <span class="pmStatusLabel">paused</span>
+          </span>
+          <span class="pmDots" aria-hidden="true">
+            <span></span><span></span><span></span><span></span><span></span>
+          </span>
+        </header>
+
+        <div class="pmBody">
+          <button id="pmResume" class="pmKey pmKeyEsc" type="button" data-action="resume">
+            <span class="pmKeyTop">
+              <span class="pmKeyLabel">esc</span>
+            </span>
+            <span class="pmKeyAction">resume</span>
+          </button>
+
+          <button id="pmRefresh" class="pmKey pmKeyEnter" type="button" data-action="restart">
+            <span class="pmKeyTop">
+              <svg class="pmReturnIcon" viewBox="0 0 24 24" aria-hidden="true">
+                <path
+                  d="M19 6 V12 H8 M11 9 L8 12 L11 15"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.7"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </span>
+            <span class="pmKeyAction">restart</span>
+          </button>
+        </div>
+
+        <footer class="pmFooter">
+          <span class="pmMatrix" aria-hidden="true">
+            <span></span><span></span><span></span><span></span>
+            <span></span><span></span><span></span><span></span>
+          </span>
+          <span class="pmFooterText">
+            <span id="pmTitle" class="pmFooterTitle">session paused</span>
+            <span class="pmCursor" aria-hidden="true">_</span>
+          </span>
+          <span class="pmMatrix" aria-hidden="true">
+            <span></span><span></span><span></span><span></span>
+            <span></span><span></span><span></span><span></span>
+          </span>
+        </footer>
+      </div>
+    </div>
 
     <script src="./app.js"></script>
   </body>

@@ -1,0 +1,93 @@
+[
+  {
+    "id": "lofi-zen-001",
+    "title": "Quiet Rain",
+    "text": "The rain tapped gently against the glass as the room settled into a softer rhythm. Your coffee cooled beside the keyboard, but the warmth stayed in your hands. Outside, streetlights blurred into gold, and every sentence felt easier to finish.",
+    "mood": ["lofi", "rain", "night"],
+    "difficulty": 2,
+    "wordCount": 44,
+    "punctuation": "light"
+  },
+  {
+    "id": "lofi-zen-002",
+    "title": "Lamp Circle",
+    "text": "A desk lamp drew a clean circle of light on the table. Beyond it, the room could wait. You typed slowly, letting each word land like a note in a loop, and the cursor blinked back with quiet patience.",
+    "mood": ["lofi", "study", "night"],
+    "difficulty": 1,
+    "wordCount": 45,
+    "punctuation": "light"
+  },
+  {
+    "id": "lofi-zen-003",
+    "title": "Tea Steam",
+    "text": "Steam lifted from your tea and disappeared into the air as if it had somewhere calm to go. The playlist stayed soft. You didn’t need to be fast, only present, only steady, one clean line at a time.",
+    "mood": ["zen", "tea", "evening"],
+    "difficulty": 1,
+    "wordCount": 45,
+    "punctuation": "light"
+  },
+  {
+    "id": "lofi-zen-004",
+    "title": "Neon Distance",
+    "text": "Neon reflections stretched across wet pavement and made the street look like it was humming. Inside, you kept your shoulders low and your breathing even. Each keystroke became a small, dependable sound that pulled you forward.",
+    "mood": ["lofi", "neon", "city"],
+    "difficulty": 2,
+    "wordCount": 45,
+    "punctuation": "medium"
+  },
+  {
+    "id": "lofi-zen-005",
+    "title": "Morning Mug",
+    "text": "Morning arrived without drama. A mug warmed your palms, and the window held a pale sky. You typed a short paragraph like it was a gentle stretch, stopping only to inhale, then continuing with a quieter mind.",
+    "mood": ["lofi", "coffee", "morning"],
+    "difficulty": 1,
+    "wordCount": 45,
+    "punctuation": "light"
+  },
+  {
+    "id": "lofi-zen-006",
+    "title": "Train Late",
+    "text": "A train passed somewhere nearby, metal on metal, then it faded into distance. The room returned to stillness. You kept going anyway, letting small mistakes pass, letting the next word be simple, and the next one be kind.",
+    "mood": ["lofi", "train", "late"],
+    "difficulty": 3,
+    "wordCount": 51,
+    "punctuation": "medium"
+  },
+  {
+    "id": "lofi-zen-007",
+    "title": "Snow Quiet",
+    "text": "Snow fell in quiet decisions, turning the street into a softer place. You watched the letters appear like footprints across clean paper. The beat stayed patient, and your hands followed it, calm and unhurried.",
+    "mood": ["zen", "snow", "quiet"],
+    "difficulty": 2,
+    "wordCount": 41,
+    "punctuation": "light"
+  },
+  {
+    "id": "lofi-zen-008",
+    "title": "Window Air",
+    "text": "The window was cracked open just enough for night air to slip in. Leaves smelled damp and honest. You typed with a slow rhythm, and each sentence felt like sweeping a small room: repetitive, clean, and strangely satisfying.",
+    "mood": ["lofi", "night", "wind"],
+    "difficulty": 2,
+    "wordCount": 47,
+    "punctuation": "light"
+  },
+  {
+    "id": "lofi-zen-009",
+    "title": "Ocean Loop",
+    "text": "Waves weren’t visible from here, but you could imagine them anyway: a loop that never needed attention to continue. You typed in the same way. The cursor blinked like a metronome, and you let it keep time.",
+    "mood": ["lofi", "ocean", "dusk"],
+    "difficulty": 2,
+    "wordCount": 49,
+    "punctuation": "light"
+  },
+  {
+    "id": "lofi-zen-010",
+    "title": "Forest Breath",
+    "text": "You pictured a trail under tall trees, the kind where your thoughts get quieter as you walk. The keyboard clicked softly. You breathed in, then out, then wrote the next line without forcing it.",
+    "mood": ["zen", "forest", "breath"],
+    "difficulty": 1,
+    "wordCount": 40,
+    "punctuation": "light"
+  }
+]
+

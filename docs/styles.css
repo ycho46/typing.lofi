@@ -1,20 +1,83 @@
 :root {
-  color-scheme: dark;
-  --bg: #0b0e14;
-  --panel: #111827;
-  --panel2: #0f172a;
-  --text: #e5e7eb;
-  --muted: #9ca3af;
-  --faint: #6b7280;
-  --good: #34d399;
-  --bad: #fb7185;
-  --accent: #a78bfa;
-  --border: rgba(255, 255, 255, 0.08);
-  --shadow: rgba(0, 0, 0, 0.35);
-  --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
-    "Courier New", monospace;
+  --accent: #ff6a00;
+  --caret: #e63946;
+  --caretGlow: rgba(230, 57, 70, 0.18);
+  --controlH: 56px;
+  --mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+    "Liberation Mono", "Courier New", monospace;
   --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica,
     Arial, "Apple Color Emoji", "Segoe UI Emoji";
+}
+
+/* Theme tokens (default: light) */
+:root,
+html[data-theme="light"] {
+  color-scheme: light;
+  --paper: #f6f3ee;
+  --paper2: #f2efe9;
+  --ink: #0b0b0f;
+  --muted: rgba(11, 11, 15, 0.62);
+  --faint: rgba(11, 11, 15, 0.38);
+  --line: rgba(11, 11, 15, 0.16);
+  --line2: rgba(11, 11, 15, 0.09);
+  --good: #0b0b0f;
+  --bad: var(--accent);
+  --glow: rgba(255, 106, 0, 0.16);
+  --panelBg: rgba(255, 255, 255, 0.62);
+  --panelBg2: rgba(255, 255, 255, 0.72);
+  --panelBg3: rgba(255, 255, 255, 0.25);
+  --shadow1: rgba(11, 11, 15, 0.18);
+  --shadow2: rgba(11, 11, 15, 0.12);
+  --shadow3: rgba(11, 11, 15, 0.1);
+  --pending: rgba(11, 11, 15, 0.24);
+  --pendingActive: rgba(11, 11, 15, 0.45);
+}
+
+html[data-theme="dark"] {
+  color-scheme: dark;
+  --paper: #07080b;
+  --paper2: #0a0b10;
+  --ink: #f2f3f7;
+  --muted: rgba(242, 243, 247, 0.66);
+  --faint: rgba(242, 243, 247, 0.4);
+  --line: rgba(242, 243, 247, 0.18);
+  --line2: rgba(242, 243, 247, 0.1);
+  --good: #f2f3f7;
+  --bad: var(--accent);
+  --glow: rgba(255, 106, 0, 0.22);
+  --panelBg: rgba(8, 10, 14, 0.62);
+  --panelBg2: rgba(10, 12, 18, 0.72);
+  --panelBg3: rgba(8, 10, 14, 0.35);
+  --shadow1: rgba(0, 0, 0, 0.55);
+  --shadow2: rgba(0, 0, 0, 0.35);
+  --shadow3: rgba(0, 0, 0, 0.25);
+  --pending: rgba(242, 243, 247, 0.32);
+  --pendingActive: rgba(242, 243, 247, 0.56);
+}
+
+/* If theme was never set, follow system */
+@media (prefers-color-scheme: dark) {
+  html:not([data-theme]) {
+    color-scheme: dark;
+    --paper: #07080b;
+    --paper2: #0a0b10;
+    --ink: #f2f3f7;
+    --muted: rgba(242, 243, 247, 0.66);
+    --faint: rgba(242, 243, 247, 0.4);
+    --line: rgba(242, 243, 247, 0.18);
+    --line2: rgba(242, 243, 247, 0.1);
+    --good: #f2f3f7;
+    --bad: var(--accent);
+    --glow: rgba(255, 106, 0, 0.22);
+    --panelBg: rgba(8, 10, 14, 0.62);
+    --panelBg2: rgba(10, 12, 18, 0.72);
+    --panelBg3: rgba(8, 10, 14, 0.35);
+    --shadow1: rgba(0, 0, 0, 0.55);
+    --shadow2: rgba(0, 0, 0, 0.35);
+    --shadow3: rgba(0, 0, 0, 0.25);
+    --pending: rgba(242, 243, 247, 0.32);
+    --pendingActive: rgba(242, 243, 247, 0.56);
+  }
 }
 
 * {
@@ -29,25 +92,40 @@ body {
 body {
   margin: 0;
   font-family: var(--sans);
-  background: radial-gradient(1200px 600px at 50% 0%, #171f3a 0%, var(--bg) 55%);
-  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: radial-gradient(
+      900px 480px at 70% -10%,
+      rgba(255, 106, 0, 0.1) 0%,
+      rgba(255, 106, 0, 0) 55%
+    ),
+    radial-gradient(900px 480px at 10% 110%, rgba(11, 11, 15, 0.06) 0%, rgba(11, 11, 15, 0) 55%),
+    linear-gradient(180deg, var(--paper) 0%, var(--paper2) 100%);
+  color: var(--ink);
 }
 
-.app {
+.shell *::selection {
+  background: rgba(255, 106, 0, 0.22);
+}
+
+.shell {
   max-width: 980px;
   margin: 0 auto;
-  padding: 28px 18px 18px;
+  padding: 26px 18px 18px;
   display: flex;
   flex-direction: column;
-  gap: 18px;
+  gap: 16px;
   min-height: 100%;
+  justify-content: center;
 }
 
-.top {
+.bar {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 16px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--line2);
 }
 
 .brand {
@@ -56,126 +134,450 @@ body {
   gap: 12px;
 }
 
-.logo {
-  width: 42px;
-  height: 42px;
-  border-radius: 12px;
-  display: grid;
-  place-items: center;
-  background: linear-gradient(135deg, rgba(167, 139, 250, 0.32), rgba(52, 211, 153, 0.22));
-  border: 1px solid var(--border);
-  box-shadow: 0 10px 30px var(--shadow);
-  font-weight: 700;
-  font-family: var(--mono);
-  color: #f4f0ff;
+.mark {
+  width: 14px;
+  height: 14px;
+  border-radius: 4px;
+  background: var(--accent);
+  box-shadow: 0 0 0 3px rgba(11, 11, 15, 0.06), 0 10px 24px rgba(11, 11, 15, 0.12);
 }
 
-.title {
-  font-weight: 700;
-  letter-spacing: 0.2px;
+.brandName {
+  font-family: "Space Grotesk", var(--sans);
+  font-weight: 300;
+  font-size: 22px;
+  letter-spacing: 0.06em;
+  line-height: 1.05;
 }
 
-.subtitle {
-  color: var(--muted);
+.unit {
+  color: rgba(255, 255, 255, 0.62);
   font-size: 13px;
-  margin-top: 2px;
+  margin-left: 2px;
 }
 
-.stats {
-  display: flex;
-  gap: 10px;
-  align-items: stretch;
-}
-
-.stat {
-  padding: 10px 12px;
-  border: 1px solid var(--border);
-  background: rgba(17, 24, 39, 0.6);
-  backdrop-filter: blur(8px);
-  border-radius: 12px;
-  min-width: 88px;
-}
-
-.statLabel {
-  color: var(--muted);
-  font-size: 12px;
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
-}
-
-.statValue {
-  margin-top: 6px;
-  font-family: var(--mono);
-  font-size: 18px;
-}
-
-.panel {
-  flex: 1;
-  border-radius: 16px;
-  border: 1px solid var(--border);
-  background: linear-gradient(180deg, rgba(17, 24, 39, 0.74), rgba(15, 23, 42, 0.62));
-  box-shadow: 0 24px 80px var(--shadow);
-  padding: 14px;
+.surface {
+  border-radius: 18px;
+  border: 1px solid var(--line);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.52), rgba(255, 255, 255, 0.22));
+  box-shadow: 0 28px 90px var(--shadow1);
+  padding: 14px 14px 36px;
   display: flex;
   flex-direction: column;
   gap: 12px;
+  position: relative;
 }
 
-.row {
+.surface::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 18px;
+  background-image: linear-gradient(to right, var(--line2) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--line2) 1px, transparent 1px);
+  background-size: 44px 44px;
+  opacity: 0.28;
+  pointer-events: none;
+  mask-image: radial-gradient(80% 70% at 50% 30%, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0.15) 62%, rgba(0, 0, 0, 0) 100%);
+}
+
+.controls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  position: relative;
+  z-index: 1;
+  flex-wrap: wrap;
+}
+
+.led {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 6px 14px;
+  min-height: var(--controlH);
+  box-sizing: border-box;
+  border-radius: 8px;
+  border: 1px solid rgba(0, 0, 0, 0.55);
+  background: linear-gradient(180deg, #0b0b0f 0%, #05060a 100%);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.28);
+  color: #0b0b0f;
+}
+
+.ledItem {
+  display: grid;
+  gap: 4px;
+  min-width: 74px;
+}
+
+.ledLabel {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.52);
+}
+
+.ledValue {
+  font-family: var(--mono);
+  font-size: 18px;
+  letter-spacing: 0.02em;
+  color: #ffffff;
+  font-variant-numeric: tabular-nums;
+}
+
+.ledItemTime {
+  min-width: 96px;
+}
+
+.ledSep {
+  width: 1px;
+  height: 28px;
+  background: rgba(255, 255, 255, 0.14);
+}
+
+html[data-theme="dark"] .led {
+  border-color: rgba(255, 255, 255, 0.12);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.5);
+}
+
+.seg {
+  display: inline-flex;
+  align-items: stretch;
+  min-height: var(--controlH);
+  box-sizing: border-box;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  overflow: hidden;
+  background: var(--panelBg2);
+  box-shadow: 0 8px 18px var(--shadow3);
+}
+
+.segBtn {
+  appearance: none;
+  border: 0;
+  background: transparent;
+  color: var(--muted);
+  padding: 8px 10px;
+  font-family: var(--mono);
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  transition: background 120ms ease, color 120ms ease;
+  text-transform: lowercase;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 44px;
+}
+
+.segBtn.isActive {
+  background: color-mix(in srgb, var(--ink) 10%, transparent);
+  color: var(--ink);
+}
+
+.segBtn:focus {
+  outline: none;
+  box-shadow: inset 0 0 0 2px rgba(255, 106, 0, 0.28);
+}
+
+.modeIcon {
+  width: 18px;
+  height: 18px;
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.control {
   display: flex;
   align-items: center;
   gap: 10px;
 }
 
-.label {
+.controlLabel {
   color: var(--muted);
-  font-size: 13px;
-}
-
-.select {
-  background: rgba(0, 0, 0, 0.25);
-  border: 1px solid var(--border);
-  color: var(--text);
-  border-radius: 10px;
-  padding: 8px 10px;
+  font-size: 12px;
   font-family: var(--mono);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
 }
 
-.spacer {
-  flex: 1;
+.controlSelect {
+  appearance: none;
+  background: var(--panelBg2);
+  border: 1px solid var(--line);
+  color: var(--ink);
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-family: var(--mono);
+  box-shadow: 0 8px 18px var(--shadow3);
 }
 
-.button {
-  border: 1px solid rgba(167, 139, 250, 0.35);
-  background: rgba(167, 139, 250, 0.14);
-  color: var(--text);
-  border-radius: 10px;
+.controlSelect:focus {
+  outline: none;
+  box-shadow: 0 0 0 5px rgba(255, 106, 0, 0.1), 0 10px 20px var(--shadow3);
+  border-color: rgba(255, 106, 0, 0.45);
+}
+
+.controlDivider {
+  width: 1px;
+  height: 28px;
+  background: var(--line2);
+  margin: 0 2px;
+}
+
+.controlButton {
+  margin-left: auto;
+  border: 1px solid var(--line);
+  background: var(--panelBg2);
+  color: var(--ink);
+  border-radius: 8px;
   padding: 8px 12px;
   font-family: var(--mono);
   cursor: pointer;
-  transition: transform 120ms ease, background 120ms ease;
+  transition: transform 120ms ease, background 120ms ease, box-shadow 120ms ease;
+  box-shadow: 0 8px 18px var(--shadow3);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
 }
 
-.button:hover {
+.controlButton:hover {
   transform: translateY(-1px);
-  background: rgba(167, 139, 250, 0.2);
+  box-shadow: 0 12px 26px var(--shadow2);
 }
 
-.button:active {
+.controlButton:active {
   transform: translateY(0px);
 }
 
-.words {
-  padding: 16px 14px;
-  border-radius: 14px;
-  border: 1px solid var(--border);
-  background: rgba(0, 0, 0, 0.18);
-  min-height: 132px;
+.controlButtonCompact {
+  margin-left: 0;
+}
+
+.themeToggle {
+  margin-left: 0;
+  border: 1px solid var(--line);
+  background: var(--panelBg2);
+  color: var(--muted);
+  border-radius: 8px;
+  padding: 8px 12px;
+  min-height: var(--controlH);
+  box-sizing: border-box;
   font-family: var(--mono);
-  font-size: 20px;
-  line-height: 1.75;
+  cursor: pointer;
+  transition: transform 120ms ease, box-shadow 120ms ease, color 120ms ease;
+  box-shadow: 0 8px 18px var(--shadow3);
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.themeToggle:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 12px 26px var(--shadow2);
+  color: var(--ink);
+}
+
+.themeToggle:active {
+  transform: translateY(0px);
+}
+
+.themeToggle:focus {
+  outline: none;
+  box-shadow: 0 0 0 5px rgba(255, 106, 0, 0.12), 0 12px 26px var(--shadow2);
+}
+
+.themeIcon {
+  width: 16px;
+  height: 16px;
+}
+
+.themeTrack {
+  width: 42px;
+  height: 22px;
+  border-radius: 999px;
+  border: 1px solid var(--line2);
+  background: color-mix(in srgb, var(--ink) 6%, transparent);
+  display: inline-flex;
+  align-items: center;
+  padding: 2px;
+}
+
+.themeThumb {
+  width: 18px;
+  height: 18px;
+  border-radius: 999px;
+  background: var(--ink);
+  box-shadow: 0 8px 18px var(--shadow3);
+  transform: translateX(0);
+  transition: transform 160ms ease, background 160ms ease;
+}
+
+html[data-theme="dark"] .themeThumb {
+  transform: translateX(20px);
+  background: var(--accent);
+}
+
+.bgm {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 6px 14px 6px 8px;
+  min-height: var(--controlH);
+  box-sizing: border-box;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--panelBg2);
+  box-shadow: 0 8px 18px var(--shadow3);
+}
+
+.bgmKnob {
+  position: relative;
+  width: 40px;
+  height: 40px;
+  border-radius: 999px;
+  background:
+    radial-gradient(circle at 32% 28%, color-mix(in srgb, white 22%, transparent), transparent 55%),
+    linear-gradient(180deg, color-mix(in srgb, var(--ink) 5%, var(--panelBg3)) 0%, color-mix(in srgb, var(--ink) 12%, transparent) 100%);
+  border: 1px solid var(--line);
+  box-shadow:
+    inset 0 -2px 4px var(--shadow3),
+    inset 0 2px 4px color-mix(in srgb, white 18%, transparent),
+    0 4px 10px var(--shadow3);
+  cursor: ns-resize;
+  touch-action: none;
+  outline: none;
+  transition: box-shadow 120ms ease;
+}
+
+.bgmKnob:focus-visible {
+  box-shadow:
+    inset 0 -2px 4px var(--shadow3),
+    inset 0 2px 4px color-mix(in srgb, white 18%, transparent),
+    0 0 0 4px var(--caretGlow);
+}
+
+.bgmDial {
+  position: absolute;
+  inset: 0;
+  transform: rotate(var(--rot, -120deg));
+  transition: transform 180ms ease;
+}
+
+.bgmIndicator {
+  position: absolute;
+  top: 4px;
+  left: 50%;
+  width: 1.5px;
+  height: 22%;
+  margin-left: -0.75px;
+  border-radius: 999px;
+  background: var(--muted);
+  transition: background 160ms ease, box-shadow 160ms ease;
+}
+
+.bgmKnob.isPlaying .bgmIndicator {
+  background: var(--caret);
+  box-shadow: 0 0 6px var(--caretGlow);
+}
+
+.bgmLabel {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  color: var(--muted);
+  user-select: none;
+  transition: color 160ms ease;
+}
+
+.bgmNote {
+  width: 14px;
+  height: 14px;
+  display: block;
+}
+
+.bgmKnob.isPlaying ~ .bgmLabel {
+  color: var(--ink);
+}
+
+.kbdHint {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 20px;
+  padding: 0 8px;
+  border-radius: 999px;
+  border: 1px solid var(--line2);
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.visualizer {
+  display: block;
+  flex: 1 1 120px;
+  min-width: 80px;
+  height: var(--controlH);
+  border-radius: 8px;
+  border: 1px solid rgba(0, 0, 0, 0.55);
+  background:
+    radial-gradient(160% 90% at 50% 0%, rgba(255, 255, 255, 0.035) 0%, transparent 64%),
+    linear-gradient(180deg, #07080b 0%, #000 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.035),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.6),
+    0 8px 18px var(--shadow3);
+  image-rendering: pixelated;
+}
+
+html[data-theme="dark"] .visualizer {
+  border-color: rgba(255, 255, 255, 0.07);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.04),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.7),
+    0 8px 18px rgba(0, 0, 0, 0.45);
+}
+
+.words {
+  padding: 22px 18px 18px;
+  border-radius: 16px;
+  border: 1px solid var(--line);
+  background: var(--panelBg);
+  min-height: 150px;
+  font-family: var(--mono);
+  font-weight: 100;
+  font-size: 17px;
+  letter-spacing: 0.01em;
+  line-height: 1.85;
   user-select: none;
   overflow: hidden;
+  position: relative;
+  z-index: 1;
+}
+
+.words:focus {
+  outline: none;
+  box-shadow: 0 0 0 5px rgba(255, 106, 0, 0.12);
+  border-color: rgba(255, 106, 0, 0.45);
+}
+
+.words::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border-radius: 16px;
+  box-shadow: inset 0 1px 0 color-mix(in srgb, var(--ink) 18%, transparent);
 }
 
 .word {
@@ -185,11 +587,11 @@ body {
 }
 
 .char {
-  opacity: 0.92;
+  opacity: 0.98;
 }
 
 .char.correct {
-  color: var(--text);
+  color: var(--ink);
 }
 
 .char.incorrect {
@@ -197,66 +599,47 @@ body {
 }
 
 .char.pending {
-  color: rgba(229, 231, 235, 0.35);
+  color: var(--pending);
+}
+
+.word.active {
+  position: relative;
 }
 
 .word.active .char.pending {
-  color: rgba(229, 231, 235, 0.6);
+  color: var(--pendingActive);
 }
 
+/* Caret has zero layout width so inserting/removing it never nudges chars
+   onto the next line (was causing the passage to "jump up and back down"
+   near line wraps). The visible bar is drawn as a pseudo-element and is
+   vertically centered on the text via `vertical-align: middle`. */
 .caret {
   display: inline-block;
-  width: 10px;
-  height: 1.35em;
-  margin-left: -6px;
-  border-radius: 8px;
-  background: rgba(52, 211, 153, 0.55);
-  vertical-align: -0.12em;
-  animation: blink 1s steps(2, jump-none) infinite;
+  position: relative;
+  width: 0;
+  height: 1em;
+  vertical-align: middle;
+}
+
+.caret::before {
+  content: "";
+  position: absolute;
+  left: -1px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 2px;
+  height: 1.15em;
+  border-radius: 999px;
+  background: var(--caret);
+  box-shadow: 0 0 0 3px var(--caretGlow);
+  animation: blink 1.8s steps(2, jump-none) infinite;
 }
 
 @keyframes blink {
   50% {
     opacity: 0;
   }
-}
-
-.inputWrap {
-  display: flex;
-}
-
-.input {
-  width: 100%;
-  border-radius: 14px;
-  border: 1px solid var(--border);
-  background: rgba(17, 24, 39, 0.55);
-  color: var(--text);
-  padding: 14px 14px;
-  font-family: var(--mono);
-  font-size: 18px;
-  outline: none;
-}
-
-.input:focus {
-  border-color: rgba(52, 211, 153, 0.45);
-  box-shadow: 0 0 0 4px rgba(52, 211, 153, 0.1);
-}
-
-.hint {
-  color: var(--muted);
-  font-size: 13px;
-  padding: 4px 2px 2px;
-}
-
-kbd {
-  font-family: var(--mono);
-  font-size: 12px;
-  padding: 2px 6px;
-  border: 1px solid var(--border);
-  border-bottom-color: rgba(255, 255, 255, 0.14);
-  border-radius: 8px;
-  background: rgba(0, 0, 0, 0.25);
-  color: var(--text);
 }
 
 .footer {
@@ -266,37 +649,340 @@ kbd {
   color: var(--faint);
   font-size: 13px;
   padding: 6px 2px 12px;
+  font-family: var(--mono);
+  letter-spacing: 0.02em;
 }
 
-.footer a {
+.footLink {
   color: var(--faint);
   text-decoration: none;
-  border-bottom: 1px dashed rgba(255, 255, 255, 0.18);
+  border-bottom: 1px dashed rgba(11, 11, 15, 0.25);
 }
 
-.footer a:hover {
-  color: var(--text);
-  border-bottom-color: rgba(52, 211, 153, 0.35);
+.footLink:hover {
+  color: var(--ink);
+  border-bottom-color: rgba(255, 59, 48, 0.5);
 }
 
-.dot {
-  opacity: 0.5;
+.sep {
+  opacity: 0.35;
 }
 
 @media (max-width: 640px) {
-  .top {
+  .bar {
     flex-direction: column;
     align-items: flex-start;
   }
-  .stats {
+  .hud {
     width: 100%;
   }
-  .stat {
+  .hudItem {
     flex: 1;
     min-width: 0;
   }
   .words {
-    font-size: 18px;
+    font-size: 15px;
   }
+}
+
+/* ===========================================================
+   Pause modal — Teenage Engineering / Nothing inspired
+   Dark monochrome panel, two tactile keycaps, pixel-grid
+   decoration, idle LED pulse, soft fade + upward motion in.
+   =========================================================== */
+.pmRoot {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  visibility: hidden;
+  font-family: var(--mono);
+  color: rgba(240, 240, 240, 0.92);
+}
+
+.pmRoot[data-open="true"] {
+  pointer-events: auto;
+  visibility: visible;
+}
+
+.pmBackdrop {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(70% 60% at 50% 45%, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.86) 100%),
+    linear-gradient(to right, rgba(255, 255, 255, 0.022) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.022) 1px, transparent 1px);
+  background-size: cover, 8px 8px, 8px 8px;
+  opacity: 0;
+  transition: opacity 220ms ease;
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+}
+
+.pmRoot[data-open="true"] .pmBackdrop {
+  opacity: 1;
+}
+
+.pmCard {
+  position: relative;
+  width: min(460px, 88vw);
+  padding: 22px 28px 18px;
+  border-radius: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background:
+    linear-gradient(180deg, #0e0f12 0%, #07080b 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.04),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.7),
+    0 30px 80px rgba(0, 0, 0, 0.55),
+    0 0 0 1px rgba(0, 0, 0, 0.6);
+  transform: translateY(14px) scale(0.985);
+  opacity: 0;
+  transition: transform 260ms cubic-bezier(0.2, 0.7, 0.15, 1), opacity 220ms ease;
+  outline: none;
+  isolation: isolate;
+}
+
+.pmRoot[data-open="true"] .pmCard {
+  transform: translateY(0) scale(1);
+  opacity: 1;
+}
+
+/* Faint internal pixel grid for that "device window" texture */
+.pmGrid {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background-image:
+    linear-gradient(to right, rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+  background-size: 6px 6px;
+  mask-image: radial-gradient(80% 70% at 50% 40%, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.15) 80%, rgba(0, 0, 0, 0) 100%);
+  -webkit-mask-image: radial-gradient(80% 70% at 50% 40%, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.15) 80%, rgba(0, 0, 0, 0) 100%);
+}
+
+.pmHeader {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 14px;
+  border-bottom: 1px dashed rgba(255, 255, 255, 0.08);
+}
+
+.pmStatus {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.pmLed {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 8px rgba(255, 106, 0, 0.55);
+  animation: pmLedPulse 2400ms ease-in-out infinite;
+}
+
+@keyframes pmLedPulse {
+  0%, 100% { opacity: 0.45; box-shadow: 0 0 6px rgba(255, 106, 0, 0.35); }
+  50% { opacity: 1; box-shadow: 0 0 12px rgba(255, 106, 0, 0.7); }
+}
+
+.pmStatusLabel {
+  font-size: 10px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.52);
+}
+
+.pmDots {
+  display: inline-flex;
+  gap: 4px;
+}
+
+.pmDots span {
+  width: 4px;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.18);
+}
+
+.pmDots span:nth-child(2) { background: rgba(255, 255, 255, 0.32); }
+.pmDots span:nth-child(3) { background: rgba(255, 255, 255, 0.55); }
+
+.pmBody {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 22px;
+  padding: 26px 4px 22px;
+}
+
+/* Tactile keycap (OP-1 style cream-white pill) */
+.pmKey {
+  appearance: none;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  width: 116px;
+  height: 116px;
+  padding: 18px 12px 12px;
+  border: 1px solid rgba(0, 0, 0, 0.18);
+  border-radius: 16px;
+  background:
+    linear-gradient(180deg, #efece4 0%, #d6d3ca 100%);
+  color: #15171b;
+  cursor: pointer;
+  font-family: var(--mono);
+  outline: none;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.85),
+    inset 0 -3px 0 rgba(0, 0, 0, 0.12),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.18),
+    0 10px 22px rgba(0, 0, 0, 0.45),
+    0 1px 0 rgba(255, 255, 255, 0.04);
+  transition: transform 140ms cubic-bezier(0.2, 0.7, 0.2, 1),
+              box-shadow 140ms ease,
+              background 140ms ease;
+}
+
+.pmKey:hover {
+  transform: translateY(-1px);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.9),
+    inset 0 -3px 0 rgba(0, 0, 0, 0.14),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.18),
+    0 14px 28px rgba(0, 0, 0, 0.5),
+    0 0 0 1px rgba(255, 106, 0, 0.18);
+}
+
+.pmKey:active {
+  transform: translateY(2px);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.6),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.18),
+    0 4px 10px rgba(0, 0, 0, 0.45);
+}
+
+.pmKey:focus-visible {
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.9),
+    inset 0 -3px 0 rgba(0, 0, 0, 0.14),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.18),
+    0 14px 28px rgba(0, 0, 0, 0.5),
+    0 0 0 2px rgba(255, 106, 0, 0.55);
+}
+
+.pmKeyTop {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  flex: 1;
+  font-weight: 500;
+}
+
+.pmKeyLabel {
+  font-size: 17px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.pmReturnIcon {
+  width: 30px;
+  height: 30px;
+  color: #15171b;
+}
+
+.pmKeyAction {
+  font-size: 10px;
+  letter-spacing: 0.22em;
+  text-transform: lowercase;
+  color: rgba(21, 23, 27, 0.55);
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+  width: 100%;
+  text-align: center;
+  padding-top: 8px;
+}
+
+.pmFooter {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  padding-top: 12px;
+  border-top: 1px dashed rgba(255, 255, 255, 0.08);
+}
+
+/* Tiny LED matrix decoration on either side of the footer text */
+.pmMatrix {
+  display: grid;
+  grid-template-columns: repeat(4, 3px);
+  grid-template-rows: repeat(2, 3px);
+  gap: 2px;
+}
+
+.pmMatrix span {
+  width: 3px;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.12);
+}
+
+/* A few cells "lit" to feel like an idle status display */
+.pmMatrix span:nth-child(2),
+.pmMatrix span:nth-child(5) {
+  background: rgba(255, 255, 255, 0.45);
+}
+.pmMatrix span:nth-child(7) {
+  background: rgba(255, 106, 0, 0.7);
+  box-shadow: 0 0 4px rgba(255, 106, 0, 0.5);
+}
+
+.pmFooterText {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 4px;
+  font-size: 10px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.42);
+}
+
+.pmCursor {
+  display: inline-block;
+  width: 7px;
+  color: rgba(255, 255, 255, 0.7);
+  animation: pmCursorBlink 1100ms steps(2, jump-none) infinite;
+  transform: translateY(1px);
+}
+
+@keyframes pmCursorBlink {
+  50% { opacity: 0; }
+}
+
+@media (max-width: 480px) {
+  .pmCard { padding: 18px 18px 14px; }
+  .pmBody { gap: 16px; padding: 22px 2px 18px; }
+  .pmKey { width: 100px; height: 100px; }
+  .pmKeyLabel { font-size: 15px; }
+}
+
+/* Slight visual tweak when the parent app is in light mode — keep the modal
+   itself dark (it's its own "device window") but soften the keycap shadow. */
+html[data-theme="light"] .pmKey {
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.9),
+    inset 0 -3px 0 rgba(0, 0, 0, 0.10),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.16),
+    0 12px 24px rgba(0, 0, 0, 0.5);
 }
 
