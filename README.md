@@ -1,6 +1,11 @@
 ## typing.lofi
 
-A tiny typing test web app (inspired by `typing.works`) intended to be hosted on GitHub Pages.
+A tiny lo‑fi typing test web app, hosted on GitHub Pages.
+
+### Modes
+
+- **Words**: classic word-by-word typing (space advances).
+- **Passage**: type a short lo‑fi / zen paragraph (punctuation matters).
 
 ### Run locally
 
